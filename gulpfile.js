@@ -21,7 +21,7 @@ gulp.task("serve", ["markup", "style"], function() {
 });
 
 gulp.task("markup", function() {
-  return gulp.src("app/pages/**/*.pug")
+  return gulp.src("app/pages/*.pug")
     .pipe(plumber())
     .pipe(pug())
     .pipe(gulp.dest("app"))
