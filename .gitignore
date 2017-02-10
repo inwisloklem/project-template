@@ -1,0 +1,5 @@
+.DS_Store
+app/*.html
+css/*.css
+dist/!.gitkeep
+node_modules/
