@@ -2,10 +2,13 @@
 
 var gulp = require("gulp");
 
+var autoprefixer = require("gulp-autoprefixer");
+var cssmin = require("gulp-csso");
 var imagemin = require("gulp-imagemin");
 var inject = require("gulp-inject");
 var plumber = require("gulp-plumber");
 var pug = require("gulp-pug");
+var rename = require("gulp-rename");
 var server = require("browser-sync").create();
 var styl = require("gulp-stylus");
 var svgmin = require("gulp-svgmin");
@@ -47,6 +50,16 @@ gulp.task("images", function() {
     imagemin.jpegtran({progressive: true})
   ]))
   .pipe(gulp.dest("dist/img"));
+});
+
+gulp.task("style-dist", function() {
+  return gulp.src("app/css/style.css")
+    .pipe(cssmin())
+    .pipe(autoprefixer({
+      browsers: ["last 2 versions"]
+    }))
+    .pipe(rename("style.min.css"))
+    .pipe(gulp.dest("dist/css"));
 });
 
 gulp.task("svg-sprite", function() {
