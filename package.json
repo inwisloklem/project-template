@@ -6,6 +6,7 @@
   "devDependencies": {
     "browser-sync": "^2.18.7",
     "gulp": "^3.9.1",
+    "gulp-imagemin": "^3.1.1",
     "gulp-inject": "^4.2.0",
     "gulp-plumber": "^1.1.0",
     "gulp-pug": "^3.2.0",

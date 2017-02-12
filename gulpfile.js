@@ -2,6 +2,7 @@
 
 var gulp = require("gulp");
 
+var imagemin = require("gulp-imagemin");
 var inject = require("gulp-inject");
 var plumber = require("gulp-plumber");
 var pug = require("gulp-pug");
@@ -37,6 +38,15 @@ gulp.task("style", function() {
     .pipe(styl())
     .pipe(gulp.dest("app/css"))
     .pipe(server.stream());
+});
+
+gulp.task("images", function() {
+  return gulp.src("app/img/**/*.{png,jpg,gif}")
+  .pipe(imagemin([
+    imagemin.optipng({optimizationLevel: 3}),
+    imagemin.jpegtran({progressive: true})
+  ]))
+  .pipe(gulp.dest("dist/img"));
 });
 
 gulp.task("svg-sprite", function() {
