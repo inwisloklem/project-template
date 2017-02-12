@@ -4,6 +4,7 @@ var gulp = require("gulp");
 
 var autoprefixer = require("gulp-autoprefixer");
 var cssmin = require("gulp-csso");
+var del = require("del");
 var imagemin = require("gulp-imagemin");
 var inject = require("gulp-inject");
 var plumber = require("gulp-plumber");
@@ -81,4 +82,8 @@ gulp.task("dist-replacecss", function() {
   return gulp.src("dist/*.html")
   .pipe(replace("style.css", "style.min.css"))
   .pipe(gulp.dest("dist"));
+});
+
+gulp.task("dist-clean", function() {
+  return del(["dist/**/*", "!dist", "!dist/.gitkeep"]);
 });
