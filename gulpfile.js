@@ -14,7 +14,7 @@ var styl = require("gulp-stylus");
 var svgmin = require("gulp-svgmin");
 var svgstore = require("gulp-svgstore");
 
-gulp.task("serve", ["markup", "style"], function() {
+gulp.task("serve", ["markup", "styles"], function() {
   server.init({
     server: "app",
     notify: false,
@@ -22,7 +22,7 @@ gulp.task("serve", ["markup", "style"], function() {
   });
 
   gulp.watch("app/pages/**/*.pug", ["markup"]);
-  gulp.watch("app/styles/**/*.styl", ["style"]);
+  gulp.watch("app/styles/**/*.styl", ["styles"]);
 
   gulp.watch("app/*.html").on("change", server.reload);
 });
@@ -35,7 +35,7 @@ gulp.task("markup", function() {
     .pipe(server.stream());
 });
 
-gulp.task("style", function() {
+gulp.task("styles", function() {
   return gulp.src("styles/style.styl")
     .pipe(plumber())
     .pipe(styl())
@@ -43,7 +43,7 @@ gulp.task("style", function() {
     .pipe(server.stream());
 });
 
-gulp.task("images", function() {
+gulp.task("images-dist", function() {
   return gulp.src("app/img/**/*.{png,jpg,gif}")
   .pipe(imagemin([
     imagemin.optipng({optimizationLevel: 3}),
@@ -52,12 +52,12 @@ gulp.task("images", function() {
   .pipe(gulp.dest("dist/img"));
 });
 
-gulp.task("style-dist", function() {
+gulp.task("styles-dist", function() {
   return gulp.src("app/css/style.css")
-    .pipe(cssmin())
     .pipe(autoprefixer({
       browsers: ["last 2 versions"]
     }))
+    .pipe(cssmin())
     .pipe(rename("style.min.css"))
     .pipe(gulp.dest("dist/css"));
 });
