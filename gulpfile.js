@@ -39,7 +39,7 @@ gulp.task("markup", function() {
 });
 
 gulp.task("styles", function() {
-  return gulp.src("styles/style.styl")
+  return gulp.src("app/styles/style.styl")
     .pipe(plumber())
     .pipe(styl())
     .pipe(gulp.dest("app/css"))
