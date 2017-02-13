@@ -11,6 +11,7 @@ var plumber = require("gulp-plumber");
 var pug = require("gulp-pug");
 var rename = require("gulp-rename");
 var replace = require("gulp-replace");
+var run = require("run-sequence");
 var server = require("browser-sync").create();
 var styl = require("gulp-stylus");
 var svgmin = require("gulp-svgmin");
@@ -59,6 +60,29 @@ gulp.task("svg-sprite", function() {
     .pipe(gulp.dest("app/pages/parts"));
 });
 
+gulp.task("dist", function(fn) {
+  run(
+    "dist-clean",
+    "svg-sprite",
+    "markup",
+    "styles",
+    "dist-styles",
+    "dist-replace",
+    "dist-images",
+    "dist-copy",
+    fn
+  );
+});
+
+gulp.task("dist-copy", function() {
+  return gulp.src([
+    "fonts/*.{woff,woff2}",
+    "js/*/**.js",
+    "*.html",
+  ], {base: "app"})
+  .pipe(gulp.dest("dist"));
+});
+
 gulp.task("dist-images", function() {
   return gulp.src("app/img/**/*.{png,jpg,gif}")
   .pipe(imagemin([
@@ -78,7 +102,7 @@ gulp.task("dist-styles", function() {
     .pipe(gulp.dest("dist/css"));
 });
 
-gulp.task("dist-replacecss", function() {
+gulp.task("dist-replace", function() {
   return gulp.src("dist/*.html")
   .pipe(replace("style.css", "style.min.css"))
   .pipe(gulp.dest("dist"));
