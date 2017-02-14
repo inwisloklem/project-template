@@ -4,9 +4,11 @@
   "colors": "always",
   "commaSpace": "always",
   "commentSpace": "always",
+  "depthLimit": 4,
   "duplicates": false,
   "globalDupe": false,
   "efficient": "always",
+  "indentPref": 2,
   "leadingZero": "always",
   "namingConvention": "BEM",
   "namingConventionStrict": true,
@@ -20,6 +22,6 @@
   "trailingWhitespace": "never",
   "universal": "never",
   "valid": true,
-  "zeroUnits": "always",
+  "zeroUnits": "never",
   "zIndexNormalize": 5
 }
