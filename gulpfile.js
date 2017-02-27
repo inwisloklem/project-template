@@ -5,6 +5,7 @@ var gulp = require("gulp");
 var autoprefixer = require("gulp-autoprefixer");
 var cssmin = require("gulp-csso");
 var del = require("del");
+var htmlmin = require("gulp-htmlmin");
 var imagemin = require("gulp-imagemin");
 var inject = require("gulp-inject");
 var plumber = require("gulp-plumber");
@@ -64,21 +65,20 @@ gulp.task("dist", function(fn) {
   run(
     "dist-clean",
     "svg-sprite",
-    "markup",
-    "styles",
     "dist-styles",
-    "dist-replace",
+    "dist-markup",
     "dist-images",
     "dist-copy",
+    "dist-replace",
     fn
   );
 });
 
 gulp.task("dist-copy", function() {
   return gulp.src([
-    "fonts/*.{woff,woff2}",
-    "js/*/**.js",
-    "*.html",
+    "app/fonts/*.{woff,woff2}",
+    "app/img/!icons",
+    "app/js/*.js"
   ], {base: "app"})
   .pipe(gulp.dest("dist"));
 });
@@ -100,6 +100,15 @@ gulp.task("dist-styles", function() {
     .pipe(cssmin())
     .pipe(rename("style.min.css"))
     .pipe(gulp.dest("dist/css"));
+});
+
+gulp.task("dist-markup", function() {
+  return gulp.src("app/pages/*.pug")
+    .pipe(plumber())
+    .pipe(pug())
+    .pipe(htmlmin())
+    .pipe(gulp.dest("dist"))
+    .pipe(server.stream());
 });
 
 gulp.task("dist-replace", function() {
