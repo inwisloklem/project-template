@@ -21,6 +21,7 @@
     "run-sequence": "^1.2.2"
   },
   "scripts": {
-    "serve": "gulp serve"
+    "serve": "gulp serve",
+    "dist": "yarn install && gulp dist"
   }
 }
